@@ -1,35 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Uji API Croot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uji API CrootJS</title>
 </head>
 <body>
-    <div id="app">Menunggu respon dari library...</div>
+
+    <div id="app">Sedang mengambil data dari GitHub...</div>
 
     <script type="module">
-        // Import langsung fungsi 'get'
+        // Import library
         import { get } from "https://cdn.jsdelivr.net/gh/crootjs/lib@0.0.3/api.js";
 
-        // Fungsi Callback untuk memproses data
-        function handleResponse(result) {
-            console.log("Data diterima:", result); // Lihat ini di F12 Console
-            if (result) {
+        // Pastikan URL-nya benar
+        const url = "https://api.github.com/users/atsgeng";
+
+        // Fungsi untuk menampilkan data ke layar
+        function tampilkanData(result) {
+            console.log("Data diterima:", result);
+            
+            if (result && result.login) {
                 document.getElementById("app").innerHTML = `
-                    <h3>Berhasil!</h3>
-                    <p>Nama: ${result.name || result.login}</p>
-                    <p>Bio: ${result.bio || 'Tidak ada bio'}</p>
+                    <h2 style="color: blue;">Berhasil Koneksi API!</h2>
+                    <p><strong>Username:</strong> ${result.login}</p>
+                    <p><strong>Bio:</strong> ${result.bio || 'Tidak ada bio'}</p>
+                    <p><strong>Public Repo:</strong> ${result.public_repos}</p>
+                    <img src="${result.avatar_url}" width="100">
                 `;
             } else {
-                document.getElementById("app").innerHTML = "Data kosong.";
+                document.getElementById("app").innerHTML = "Data tidak ditemukan atau limit API tercapai.";
             }
         }
 
-        // Jalankan pemanggilan
-        // Gunakan URL yang pasti ada datanya
-        const url = "https://api.github.com/users/atsgeng";
-        
-        get(url, handleResponse);
+        // Panggil fungsi get
+        get(url, tampilkanData);
     </script>
+
 </body>
 </html>
