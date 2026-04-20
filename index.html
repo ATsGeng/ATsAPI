@@ -1,17 +1,35 @@
-<script type="module">
-    import { get } from "https://cdn.jsdelivr.net/gh/crootjs/lib@0.0.3/api.js";
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Uji API Croot</title>
+</head>
+<body>
+    <div id="app">Menunggu respon dari library...</div>
 
-    // Kita tes pakai API publik yang sangat stabil
-    const url = "https://api.github.com/users/atsgeng";
+    <script type="module">
+        // Import langsung fungsi 'get'
+        import { get } from "https://cdn.jsdelivr.net/gh/crootjs/lib@0.0.3/api.js";
 
-    get(url, (data) => {
-        // Jika berhasil, teks "Sedang memuat" akan langsung berganti
-        if (data) {
-            document.getElementById("app").innerHTML = "Data Berhasil Masuk: " + (data.name || data.login);
-        } else {
-            document.getElementById("app").innerHTML = "Data kosong atau API limit.";
+        // Fungsi Callback untuk memproses data
+        function handleResponse(result) {
+            console.log("Data diterima:", result); // Lihat ini di F12 Console
+            if (result) {
+                document.getElementById("app").innerHTML = `
+                    <h3>Berhasil!</h3>
+                    <p>Nama: ${result.name || result.login}</p>
+                    <p>Bio: ${result.bio || 'Tidak ada bio'}</p>
+                `;
+            } else {
+                document.getElementById("app").innerHTML = "Data kosong.";
+            }
         }
-    }).catch(err => {
-        document.getElementById("app").innerHTML = "Error: " + err;
-    });
-</script>
+
+        // Jalankan pemanggilan
+        // Gunakan URL yang pasti ada datanya
+        const url = "https://api.github.com/users/atsgeng";
+        
+        get(url, handleResponse);
+    </script>
+</body>
+</html>
