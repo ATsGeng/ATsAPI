@@ -1,16 +1,17 @@
-ES6 Module
-import api from "https://cdn.jsdelivr.net/gh/crootjs/lib@0.0.3/api.js";
+// main.js
+import { fetchOrgData } from './api-service.js';
+import { setInner, setGreenStyle } from './element.js';
 
-// Fungsi untuk inisialisasi pemanggilan API
-export const initAPI = () => {
-    const url = "https://api.github.com/orgs/atsgeng";
-    const targetId = "app";
+const init = () => {
+    const ORGANISASI = "atsgeng";
+    const ELEMENT_ID = "app";
 
-    console.log("Memulai pemanggilan API...");
-    
-    // Menggunakan fungsi get dari crootjs v0.0.3
-    // Versi ini secara otomatis memasukkan hasil ke elemen dengan ID targetId
-    api.get(url, targetId);
+    // Gunakan fungsi dari element.js untuk memberi info awal
+    setInner(ELEMENT_ID, "<i>Memulai koneksi ke sistem ATsGeng...</i>");
+    setGreenStyle(ELEMENT_ID);
+
+    // Panggil API
+    fetchOrgData(ORGANISASI, ELEMENT_ID);
 };
 
-initAPI();
+document.addEventListener('DOMContentLoaded', init);
