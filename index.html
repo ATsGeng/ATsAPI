@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API CrootJS</title>
+</head>
+<body>
+    <div id="app">Sedang memuat data...</div>
+
+    <script type="module">
+        // Menggunakan library sesuai permintaan kamu
+        import { get } from "https://cdn.jsdelivr.net/gh/crootjs/lib@0.0.3/api.js";
+
+        const url = "https://api.github.com/orgs/ATsGeng"; // Mengambil data info organisasi ATs
+
+        get(url, (data) => {
+            console.log(data);
+            document.getElementById("app").innerHTML = `
+                <h2> ATs Gengg ${data.name || data.login}</h2>
+                <p>Bio: ${data.description || "Tidak ada deskripsi"}</p>
+                <p>Public Repos: ${data.public_repos}</p>
+            `;
+        });
+    </script>
+</body>
+</html>
