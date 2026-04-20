@@ -2,38 +2,22 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Uji API CrootJS</title>
 </head>
 <body>
 
-    <div id="app">Sedang mengambil data dari GitHub...</div>
+    <div id="content">Menunggu data dari CrootJS...</div>
 
     <script type="module">
-        // Import library
+        // Import fungsi 'get' dari library
         import { get } from "https://cdn.jsdelivr.net/gh/crootjs/lib@0.0.3/api.js";
 
-        // Pastikan URL-nya benar
-        const url = "https://api.github.com/orgs/ATsGeng";
-        // Fungsi untuk menampilkan data ke layar
-        function tampilkanData(result) {
-            console.log("Data diterima:", result);
-            
-            if (result && result.login) {
-                document.getElementById("app").innerHTML = `
-                    <h2 style="color: blue;">Berhasil Koneksi API!</h2>
-                    <p><strong>Username:</strong> ${result.login}</p>
-                    <p><strong>Bio:</strong> ${result.bio || 'Tidak ada bio'}</p>
-                    <p><strong>Public Repo:</strong> ${result.public_repos}</p>
-                    <img src="${result.avatar_url}" width="100">
-                `;
-            } else {
-                document.getElementById("app").innerHTML = "Data tidak ditemukan atau limit API tercapai.";
-            }
-        }
+        // URL API (pakai info organisasi kamu)
+        const url = "https://api.github.com/orgs/atsgeng";
 
-        // Panggil fungsi get
-        get(url, tampilkanData);
+        // Di croot.js v0.0.3, fungsi get langsung mengisi elemen HTML
+        // Parameter: (URL, ID_ELEMEN_HTML)
+        get(url, "content");
     </script>
 
 </body>
