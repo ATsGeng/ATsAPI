@@ -4,14 +4,14 @@ import { renderingData } from './element.js';
 
 const init = () => {
     const ORGANISASI = "atsgeng";
-    const TARGET_ID = "app";
+    const TARGET_ID = "app"; // Pastikan di index.html ID-nya adalah 'app'
 
-    // Gunakan fungsi dari element.js untuk pesan awal
-    renderingData(TARGET_ID, "<i>Sistem sedang memuat data sekolah...</i>");
+    // Memberikan pesan loading yang selaras dengan tema hijau
+    renderingData(TARGET_ID, "<i style='color: #4ade80;'>Menghubungkan ke sistem ATsGeng...</i>");
 
-    // Jalankan pengambilan data API
+    // Ambil data dari API
     fetchOrgData(ORGANISASI, TARGET_ID);
 };
 
-// Jalankan saat halaman siap
+// Tunggu DOM selesai dimuat
 document.addEventListener('DOMContentLoaded', init);
