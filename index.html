@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uji Coba CrootJS API</title>
+</head>
+<body>
+
+    <h1>Hasil Data API GitHub</h1>
+    <div id="app">Harap Tunggu</div>
+
+    <script type="module">
+        import { get } from "https://cdn.jsdelivr.net/gh/crootjs/lib@0.0.3/api.js";
+        const targetURL = "https://api.github.com/orgs/atsgeng";
+        get(targetURL, tampilkan);
+        function tampilkan(result) {
+            console.log(result); // Melihat data di inspect element console
+            
+            // Mengubah isi div 'app' dengan data dari API
+            if (result && result.login) {
+                document.getElementById("app").innerHTML = `
+                    <p><strong>Nama Organisasi:</strong> ${result.login}</p>
+                    <p><strong>Jumlah Repo:</strong> ${result.public_repos}</p>
+                    <p><strong>URL GitHub:</strong> <a href="${result.html_url}">${result.html_url}</a></p>
+                `;
+            } else {
+                document.getElementById("app").innerHTML = "Gagal memuat data atau API Limit.";
+            }
+        }
+    </script>
+
+</body>
+</html>
